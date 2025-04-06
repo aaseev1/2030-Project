@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Read Film Reviews</title>
+  <link href="css/darkly.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="container">
+ <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <!-- Logo Image -->
+    <img width="50px" class="me-2" src="img/book.avif" alt="Logo" />
+
+    <!-- Navbar Brand with Subscript -->
+    <a class="navbar-brand fw-bold" href="index.html"
+      >Review Forum<sup>CPSC 2030</sup></a
+    >
+
+    <!-- Toggler Button for Mobile View -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsable Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <!-- Home Link -->
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+
+        <!-- Dropdown Menu for Web Colors -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Reviews
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="film.html">Film Reviews</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="book.html">Book Reviews</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNav"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="register.html"
+            >Register</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="login.html">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <!-- Review List -->
+  <div class="container mt-5 text-light">
+    <h2>Recent Film Reviews</h2>
+    <p class="mb-4">Here's what others are saying:</p>
+
+    <!-- Review List will be dynamically inserted here -->
+    <div id="review-list"></div>
+
+    <a href="film.html" class="btn btn-outline-light mt-3">← Back to Film Reviews</a>
+</div>
+</div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Fetch reviews from the server
+    fetch('/films')
+      .then(response => response.json())
+      .then(data => {
+        const reviewList = document.getElementById('review-list'); // Get the container
+  
+        // Loop through each review and create a card
+        data.forEach(review => {
+          const reviewElement = document.createElement('div');
+          reviewElement.classList.add('card', 'bg-dark', 'border-info', 'mb-3');
+  
+          // Add the review content inside the card
+          reviewElement.innerHTML = `
+            <div class="card-body">
+              <h5 class="card-title text-info">${review.title}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">by ${review.reviewer} • ⭐⭐⭐⭐⭐</h6>
+              <p class="card-text">${review.review}</p>
+            </div>
+          `;
+  
+          // Append the review to the review list
+          reviewList.appendChild(reviewElement);
+        });
+      })
+      .catch(err => console.log('Error fetching reviews:', err));
+  </script>
+  
+</body>
+</html>
