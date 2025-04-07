@@ -25,17 +25,17 @@ homeController.post('/signin', async (request, response, next) => {
     let password = request.body.password
     
     let user = await util.findOneByEmail(collection, email)
-    const isMatch = await hashing.compare(password, user.password)
+    if (!user) {
+        return response.status(404).json({ message: "User not found" });
+    }
 
-    console.log(user)
+    const isMatch = await hashing.compare(password, user.password)
     if(isMatch){
         CurrentUser.login(user.username, user.role)
         console.log(`Current user: ${CurrentUser.getUsername()}`)
-        response.status(200).json({})
-    }else{
-        //return error 
-        //incorrect credentials code 
-        response.status(403).json({})
+        response.status(200).json({ message: 'Authentication successful' })
+    } else {
+        response.status(403).json({ message: 'Invalid credentials' })
     }
 })
 // HTTP POST

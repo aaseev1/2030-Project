@@ -4,6 +4,8 @@ const Post = require("../models/post")
 const client = util.getMongoClient(false)
 const express = require('express')
 const memberController = express.Router()
+const { authorizeAdmin, authorizeMember, authorizeGuest } = require('../middleware/auth')
+
 // Authentication & Authorization Middleware
 const authenticateUser = (req, res, next) => {
     if (req.user == null){
@@ -14,16 +16,49 @@ const authenticateUser = (req, res, next) => {
     }
     next()
 }
-const authenticateRole = (role, req, res, next) => {
-    return (req,res,next) => {
-        if(req.user.role == role){
-            res.status(401)
-            return res.send('Not authorized')
+
+const authenticateRole = (requiredRole) => {
+    return (req, res, next) => {
+        if (!req.user || req.user.role !== requiredRole) {
+            return res.status(403).json({ message: 'Forbidden: Insufficient role' })
+        }
+        next()
     }
-    
 }
+
+const authenticateAdmin = (req, res, next) => {
+    return authenticateRole('admin')(req, res, next)
 }
-memberController.get('/member', authenticateUser, util.logRequest, async (req, res, next) => {
+
+const authenticateMember = (req, res, next) => {
+    return authenticateRole('member')(req, res, next)
+}
+
+const authenticateGuest = (req, res, next) => {
+    return authenticateRole('guest')(req, res, next)
+}
+// Define routes with role-based authorization
+memberController.get('/adminPage', authenticateUser, authenticateAdmin, (req, res) => {
+    res.send('Welcome Admin, you can manage the system here.');
+})
+memberController.get('/memberPage', authenticateUser, authenticateMember, (req, res) => {
+    res.send('Welcome Member, you can access posts here.');
+})
+memberController.get('/publicPage', authenticateGuest, (req, res) => {
+    res.send('Welcome Guest, this is public content.');
+})
+memberController.get('/admin-dashboard', authorizeAdmin, (req, res) => {
+    res.send('Welcome, Admin!')
+})
+
+memberController.get('/member-dashboard', authorizeMember, (req, res) => {
+    res.send('Welcome, Member!')
+})
+
+memberController.get('/guest-info', authorizeGuest, (req, res) => {
+    res.send('Guest Access Page')
+})
+memberController.get('/member', authenticateUser, authorizeMember, util.logRequest, async (req, res) => {
     console.info('Inside member.html')
     let collection = client.db().collection('Posts')
     let post = Post('Security','AAA is a key concept in security','Pentester')
@@ -31,13 +66,15 @@ memberController.get('/member', authenticateUser, util.logRequest, async (req, r
     res.sendFile('member.html',{ root: config.ROOT})
 })
 // HTTP GET
-memberController.get('/posts', util.logRequest, async (req, res, next) => {
+memberController.get('/posts', util.logRequest, async (req, res) => {
     let collection = client.db().collection('Posts')
     let posts = await util.findAll(collection, {})
     //Utils.saveJson(__dirname + '/../data/topics.json', JSON.stringify(topics))
     res.status(200).json(posts)
-    
 })
+
+// -- Going to edit the rest later (Allison)
+
 memberController.get('/post/:ID', async (request, response, next) => {
     // extract the querystring from url
     let id = request.params.ID

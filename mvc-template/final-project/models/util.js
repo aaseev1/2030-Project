@@ -12,7 +12,7 @@
     let mongoClientInstance = null
     const getMongoClient = (local = true) => {
         if(!mongoClientInstance){
-            let uri = `mongodb+srv://${connection.USERNAME}:${connection.PASSOWRD}@${connection.SERVER}/${connection.DATABASE}?retryWrites=true&w=majority&appName=Spring-2025`
+            let uri = `mongodb+srv://${connection.USERNAME}:${connection.PASSWORD}@${connection.SERVER}/${connection.DATABASE}?retryWrites=true&w=majority&appName=Spring-2025`
             if (local) {
                 uri = `mongodb://127.0.0.1:27017/${connection.DATABASE}`
             }
