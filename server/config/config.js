@@ -1,14 +1,17 @@
 
 const config = {
-    USE_LOCAL_DB: true,
+    USE_LOCAL_DB: false,
     LOCAL_URI: 'mongodb://127.0.0.1:27017',
     LOCAL_DB_NAME: 'ReviewForum',
   
-    SERVER: 'your-cluster.mongodb.net',
-    USERNAME: 'your-username',
-    PASSWORD: 'your-password',
-    ATLAS_DB_NAME: 'your-db-name',
-    SESSION_SECRET: 'your-session-secret'
+    SERVER: 'cluster.eb6ot.mongodb.net',
+    USERNAME: 'dbuser',
+    PASSWORD: 'stackofmern',
+    ATLAS_DB_NAME: 'Forum',
+    SESSION_SECRET: '4f35@!f8#920fasdkljf0932j4!@#LJKDF$@!#$',
+
+    OPEN_LIBRARY_API: 'https://openlibrary.org/search.json?q=',
+    OPEN_LIBRARY_COVER_API: 'https://covers.openlibrary.org/b/olid/'
   };
   
   config.MONGO_URI = config.USE_LOCAL_DB

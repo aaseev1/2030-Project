@@ -1,9 +1,11 @@
 (() => {
   const { getDB } = require('../server/database');
   const { ObjectId } = require('mongodb');
+  const config = require('../server/config/config');
+  const backup = require('../models/backup/backup.json');
 
   const createReview = (category) => async (req, res) => {
-    const { title, review, rating } = req.body;
+    const { title, image, creator, review, rating } = req.body;
     const db = getDB();
 
     if (!title || !review || !rating)
@@ -11,8 +13,10 @@
 
     await db.collection('reviews').insertOne({
       title,
+      image,
+      creator,
       review,
-      author: req.session.user.name,
+      reviewer: req.session.user.name,
       rating,
       category,
       createdAt: new Date(),
@@ -44,6 +48,24 @@
     res.json({ message: 'Review updated' });
   };
 
+  const fetchBookResults = async (req, res) => {
+    const title = req.body.query;
+    const fetchQuery = title.split(' ').join('+');
+    const url = `${config.OPEN_LIBRARY_API}${fetchQuery}`;
+    const response = await fetch(url);
+    if(!response.ok){
+      return backup;
+    }
+    const data = await response.json();
+    res.status(200).json(data);
+  };
+
+  const fetchBookCoverURL = async (req, res) => {
+    const imageId = req.params.imageId;
+    const coverUrl = `${config.OPEN_LIBRARY_COVER_API}${imageId}`;
+    res.status(200).json({coverUrl: coverUrl});
+  };
+
   module.exports = {
     getAllReviews: getAllReviews(),
     createReview: createReview(''),
@@ -57,5 +79,7 @@
     createBookReview: createReview('book'),
     deleteBookReview: deleteReview,
     updateBookReview: updateReview,
+    fetchBookResults: fetchBookResults,
+    fetchBookCoverURL: fetchBookCoverURL,
   };
 })();

@@ -43,8 +43,21 @@
 
       <form id="bookReviewForm" class="mt-4">
         <div class="mb-3">
-          <label for="title" class="form-label">Book Title</label>
-          <input type="text" class="form-control" id="title" required placeholder="e.g. The Great Gatsby">
+          <label for="bookSearch" class="form-label">Search For A Book Title</label>
+          <input name="bookSearch" id="bookSearch" class="form-control" required placeholder="e.g. The Great Gatsby"/>
+          <button class="btn btn-primary mt-3" id="bookSearchBtn">Search For Books</button>
+        </div>
+        <input type="hidden" name="bookID" id="bookID"/>
+        <div class="mb-3">
+          <label for="bookTitles" class="form-label">Book Title</label>
+          <select data-val="true" name="bookTitles" id="bookTitles" class="form-select
+          aria-label=" Default select>
+            <option selected>Please Search For A Book</option>/>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="author" class="form-label">Author</label>
+          <input name="author" id="author" class="form-control" />
         </div>
         <div class="mb-3">
           <label for="review" class="form-label">Your Review</label>

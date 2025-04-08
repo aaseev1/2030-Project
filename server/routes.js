@@ -8,6 +8,10 @@
     const authController = require('../controllers/authController');
     const reviewController = require('../controllers/reviewController');
   
+    // === API ROUTES ===
+    router.post('/getBookTitles', reviewController.fetchBookResults);
+    router.get('/getBookCover/:imageId', reviewController.fetchBookCoverURL);
+
     // === AUTH ROUTES ===
     router.get('/auth/login', (req, res) => res.sendFile(path.join(__dirname, '..', 'views', 'login.html')));
     router.get('/auth/register', (req, res) => res.sendFile(path.join(__dirname, '..', 'views', 'register.html')));
