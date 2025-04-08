@@ -2,6 +2,11 @@
 const { MongoClient } = require('mongodb');
 const config = require('./config/config');
 
+const password = encodeURIComponent(config.PASSWORD);
+const uri = config.USE_LOCAL_DB
+  ? `${config.LOCAL_URI}/${config.LOCAL_DB_NAME}`
+  : `mongodb+srv://${config.USERNAME}:${password}@${config.SERVER}/?retryWrites=true&w=majority&appName=${config.ATLAS_DB_NAME}`;
+  
 const client = new MongoClient(config.MONGO_URI);
 let db;
 

@@ -1,7 +1,7 @@
 (() => {
   const role = sessionStorage.getItem('userRole');
 
-  fetch('/films')
+  fetch('/api/films')
     .then(res => res.json())
     .then(data => {
       const reviewList = document.getElementById('review-list');
