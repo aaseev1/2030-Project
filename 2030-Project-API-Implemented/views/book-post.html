@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Post Book Review</title>
+  <link rel="shortcut icon" href="img/book.avif" type="image/x-icon">
+  <link href="css/darkly.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <img width="50px" class="me-2" src="img/book.avif" alt="Logo" />
+        <a class="navbar-brand fw-bold" href="index.html">Review Forum<sup>CPSC 2030</sup></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Reviews</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="film.html">Film Reviews</a></li>
+                <li><a class="dropdown-item" href="book.html">Book Reviews</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav" id="authLinks">
+            <li class="nav-item" id="nav-register"><a class="nav-link fw-semibold" href="register.html">Register</a></li>
+            <li class="nav-item" id="nav-login"><a class="nav-link fw-semibold" href="login.html">Login</a></li>
+            <li class="nav-item d-none" id="nav-user"><a class="nav-link disabled" href="#">Hi, User</a></li>
+            <li class="nav-item d-none" id="nav-logout"><a class="nav-link fw-semibold" href="#" id="logoutBtn">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5 text-light">
+      <h2>Post a Book Review</h2>
+      <p>Finished a good (or trashy) read? Spill the tea</p>
+
+      <form id="bookReviewForm" class="mt-4">
+        <div class="mb-3">
+          <label for="bookSearch" class="form-label">Search For A Book Title</label>
+          <input name="bookSearch" id="bookSearch" class="form-control" required placeholder="e.g. The Great Gatsby"/>
+          <button class="btn btn-primary mt-3" id="bookSearchBtn">Search For Books</button>
+        </div>
+        <input type="hidden" name="bookID" id="bookID"/>
+        <div class="mb-3">
+          <label for="bookTitles" class="form-label">Book Title</label>
+          <select data-val="true" name="bookTitles" id="bookTitles" class="form-select
+          aria-label=" Default select>
+            <option selected>Please Search For A Book</option>/>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="author" class="form-label">Author</label>
+          <input name="author" id="author" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="review" class="form-label">Your Review</label>
+          <textarea class="form-control" id="review" rows="5" required placeholder="What did you love or dislike?"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <select class="form-select" id="rating" required>
+            <option selected disabled value="">Choose a rating</option>
+            <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+            <option value="4">⭐⭐⭐⭐ (4)</option>
+            <option value="3">⭐⭐⭐ (3)</option>
+            <option value="2">⭐⭐ (2)</option>
+            <option value="1">⭐ (1)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-info">Submit Review</button>
+      </form>
+
+      <div class="mt-4">
+        <a href="book.html" class="btn btn-outline-light">← Back to Book Reviews</a>
+      </div>
+    </div>
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-info">
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLabel">Message</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="feedbackModalBody">Loading...</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" id="modalCloseBtn">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <footer class="bg-primary text-white text-center mt-5 py-3">
+      <p>CPSC 2030-M02</p>
+    </footer>
+  </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/book-post.js"></script>
+</body>
+</html>

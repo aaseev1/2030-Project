@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Film Reviews</title>
+  <link rel="shortcut icon" href="img/book.avif" type="image/x-icon" />
+  <link href="css/darkly.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <img width="50px" class="me-2" src="img/book.avif" alt="Logo" />
+        <a class="navbar-brand fw-bold" href="index.html">Review Forum<sup>CPSC 2030</sup></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Reviews</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="film.html">Film Reviews</a></li>
+                <li><a class="dropdown-item" href="book.html">Book Reviews</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav" id="authLinks">
+            <li class="nav-item" id="nav-register"><a class="nav-link fw-semibold" href="register.html">Register</a></li>
+            <li class="nav-item" id="nav-login"><a class="nav-link fw-semibold" href="login.html">Login</a></li>
+            <li class="nav-item d-none" id="nav-user"><a class="nav-link disabled" href="#">Hi, User</a></li>
+            <li class="nav-item d-none" id="nav-logout"><a class="nav-link fw-semibold" href="#" id="logoutBtn">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5 text-center text-light">
+      <h2 class="mb-4">Film Reviews</h2>
+      <p class="lead">Welcome to the Film Review section! Choose what you want to do below:</p>
+    </div>
+
+    <div class="container mt-4">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+          <div class="card bg-dark border-info h-100">
+            <div class="card-body">
+              <h5 class="card-title text-info">Post a Review</h5>
+              <p class="card-text text-light">Watched something cool or awful? Let the world know what you thought!</p>
+              <a href="film-post.html" class="btn btn-info">Post Film Review</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card bg-dark border-info h-100">
+            <div class="card-body">
+              <h5 class="card-title text-info">Read Reviews</h5>
+              <p class="card-text text-light">See what others are saying about the latest movies, classics, and hidden gems.</p>
+              <a href="film-read.html" class="btn btn-info">Read Film Reviews</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container text-center mt-5">
+      <a href="index.html" class="btn btn-outline-light">← Back to Home</a>
+    </div>
+
+    <footer class="bg-primary text-white text-center mt-5 py-3">
+      <p>CPSC 2030-M02</p>
+    </footer>
+  </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+</html>
