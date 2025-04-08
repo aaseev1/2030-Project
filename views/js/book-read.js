@@ -10,10 +10,22 @@
         const card = document.createElement('div');
         card.classList.add('card', 'bg-dark', 'border-info', 'mb-3');
 
+        let author = '';
+        if(review.creator && review.creator !== ''){
+          author = `by ${review.creator}`;
+        }
+
+        let imageSrc = '';
+        if(review.image && review.image !== ''){
+          imageSrc = `src="${review.image}"`;
+        }
+
         card.innerHTML = `
           <div class="card-body">
-            <h5 class="card-title text-info">${review.title}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">by ${review.author} • ⭐ ${review.rating}</h6>
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title text-info">${review.title} ${author}</h5> <img ${imageSrc} />
+            </div>
+            <h6 class="card-subtitle mb-2 text-muted">by ${review.reviewer} • ⭐ ${review.rating}</h6>
             <p class="card-text">${review.review}</p>
             ${role === 'admin' ? `
               <button class="btn btn-sm btn-danger me-2" onclick="deleteReview('${review._id}')">Delete</button>

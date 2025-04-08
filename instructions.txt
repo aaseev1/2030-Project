@@ -1,0 +1,4 @@
+1. Run npm install to download the node_modules
+2. Run npm start
+3. If the dependencies are not present, run npm install axios, bcrypt, connect-mongo, dotenv, ejs, express, express-session, method-override, mongodb, mongoose and nodemon 
+4. Open localhost link stated in terminal
