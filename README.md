@@ -77,16 +77,6 @@ The project follows a structured MVC architecture for efficient code organizatio
 
 ---
 
-## Contribution Guidelines  
-Feel free to fork this repository and submit pull requests with improvements or bug fixes!  
-
----
-
 ## License  
 This project is licensed under [MIT License](LICENSE).
 
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/48502709/6d3c53ae-96a5-4ff9-9e27-f93bfd52e9ea/2030-Project-presentation-instruction.docx
-
----
-Answer from Perplexity: pplx.ai/share
