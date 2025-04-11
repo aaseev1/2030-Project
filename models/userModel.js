@@ -1,11 +1,11 @@
-(() => {
-  const { getDB } = require('../server/database');
-  const collection = () => getDB().collection('users');
-
-  const User = {
-    findByUsername: async (username) => await collection().findOne({ username }),
-    createUser: async (user) => await collection().insertOne(user),
+const User = (name, username, password, role = 'member') => {
+  return {
+    name,
+    username,
+    password,
+    role,
+    createdAt: new Date()
   };
+};
 
-  module.exports = User;
-})();
+module.exports = User;

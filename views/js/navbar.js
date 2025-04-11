@@ -25,10 +25,13 @@
     }
   }
 
-  logoutBtn?.addEventListener('click', async (e) => {
-    e.preventDefault();
-    await fetch('/api/auth/logout');
-    sessionStorage.clear();
-    window.location.href = 'login.html';
-  });
+  if (logoutBtn && role) {
+    logoutBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await fetch('/api/auth/logout');
+      sessionStorage.clear();
+      window.location.href = 'login.html';
+    });
+  }
+  
 })();

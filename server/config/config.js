@@ -1,4 +1,3 @@
-
 const config = {
     USE_LOCAL_DB: false,
     LOCAL_URI: 'mongodb://127.0.0.1:27017',

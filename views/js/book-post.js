@@ -25,9 +25,9 @@
       image: imageSrc,
       creator: document.getElementById('author').value,
       review: document.getElementById('review').value,
-      reviewer: sessionStorage.getItem('name'),
       rating: document.getElementById('rating').value
     };
+    
 
     try {
       const res = await fetch('/books', {

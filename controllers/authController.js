@@ -2,6 +2,7 @@
   const { getDB } = require('../server/database');
   const bcrypt = require('bcrypt');
   const path = require('path');
+  const User = require('../models/userModel'); 
 
   const servePage = (filename) => (req, res) =>
     res.sendFile(path.join(__dirname, '..', 'views', filename));
@@ -18,7 +19,8 @@
       return res.status(400).json({ error: 'Email already in use' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await db.collection('users').insertOne({ name, username, password: hashedPassword, role });
+    const newUser = User(name, username, hashedPassword, role);
+    await db.collection('users').insertOne(newUser);
 
     res.status(201).json({ message: 'Registration successful' });
   };
@@ -27,14 +29,14 @@
     const { username, password } = req.body;
     const db = getDB();
     const user = await db.collection('users').findOne({ username });
-    console.log('------------------------')
+
     console.log('------------------------')
     console.log('\nUser:', user);
     console.log('Entered password:', password);
     const match = await bcrypt.compare(password, user.password);
     console.log('Match result:', match);
-    
-    if (!user || !(await bcrypt.compare(password, user.password)))
+
+    if (!user || !match)
       return res.status(401).json({ error: 'Invalid credentials' });
 
     req.session.user = {

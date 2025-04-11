@@ -15,12 +15,11 @@
     const data = {
       title: document.getElementById('title').value,
       review: document.getElementById('review').value,
-      reviewer: sessionStorage.getItem('name'),
       rating: document.getElementById('rating').value
     };
 
     try {
-      const res = await fetch('/api/films', {
+      const res = await fetch('/films', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

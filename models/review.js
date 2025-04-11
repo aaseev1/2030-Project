@@ -1,11 +1,13 @@
-const Review = (Title, Review, Rating, UserId, Username, PostedAt) => {
+const Review = (title, review, rating, userId, username, postedAt) => {
     return {
-        title: Title,
-        review: Review,
-        rating: Rating,
-        userId: UserId,
-        username: Username,
-        postedAt: PostedAt
-    }
-}
-module.exports = Review
+      title,
+      review,
+      rating,
+      userId,
+      username,
+      postedAt
+    };
+  };
+  
+module.exports = Review;
+  

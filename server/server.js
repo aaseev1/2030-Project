@@ -6,8 +6,6 @@
   const accountabilityLogger = require('../middleware/accountability');
   const { connectDB } = require('./database');
   const config = require('./config/config');
-  const { isMember } = require('../middleware/auth');
-  const Review = require("../models/review");
 
   const app = express();
   const PORT = process.env.PORT || 3000;
@@ -18,35 +16,15 @@
       app.use(express.json());
       app.use(accountabilityLogger);
 
-      app.use(express.static(path.join(__dirname, '..', 'views')));
-
-      app.post('/api/reviews/films', isMember, async (req, res) => {
-        const { title, review, rating } = req.body;
-      
-        if (!title || !review || !rating) {
-          return res.status(400).json({ error: 'Missing required fields' });
-        }
-      
-        try {
-          const db = client.db(config.DATABASE);
-          const collection = db.collection('filmReviews');
-      
-          let review = Review(title, review, rating, req.session.user._id, req.session.user.username, new Date());
-          const result = await collection.insertOne(review);
-      
-          res.status(201).json({ message: 'Film review posted!', id: result.insertedId });
-        } catch (err) {
-          console.error('Error posting film review:', err);
-          res.status(500).json({ error: 'Internal server error' });
-        }
-      });      
+      app.use(express.static(path.join(__dirname, '..', 'views')));     
 
       app.use(session({
         secret: config.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         store: MongoStore.create({
-          mongoUrl: `mongodb+srv://${config.USERNAME}:${encodeURIComponent(config.PASSWORD)}@${config.SERVER}/?retryWrites=true&w=majority&appName=${config.DATABASE}`,
+          mongoUrl: config.MONGO_URI
+          ,
           dbName: config.DATABASE,
         }),
         cookie: { maxAge: 1000 * 60 * 60 * 2 },
